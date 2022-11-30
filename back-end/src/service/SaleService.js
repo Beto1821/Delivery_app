@@ -1,4 +1,5 @@
 const RestError = require('../errors/RestError');
+const ProductORM = require('../model/ProductORM');
 const SaleORM = require('../model/SaleORM');
 const UserORM = require('../model/UserORM');
 const { newSaleSchema } = require('./validation/saleSchema');
@@ -10,6 +11,14 @@ const insertSale = async (sale) => {
 
   if (!seller || seller.role !== 'seller') {
     throw new RestError(422, 'Invalid seller');
+  }
+
+  const products = await ProductORM.findManyByPk(
+    ...sale.products.map(({ id }) => id),
+  );
+
+  if (products.length < sale.products.length) {
+    throw new RestError(422, 'Some of the provided products do not exist');
   }
 
   const result = await SaleORM.insertSale(value);
