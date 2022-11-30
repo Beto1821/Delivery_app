@@ -1,9 +1,9 @@
-const User = require('../database/models/UserModel');
+const { User } = require('../database/models');
 const generateToken = require('../auth/generateToken');
 const RestError = require('../errors/RestError');
 
 const readOne = async (email, password) => {
-  const user = User.findOne({ where: { email, password } });
+  const user = await User.findOne({ where: { email, password } });
 
   if (!user) {
     throw new RestError(404, 'User not found');
@@ -14,4 +14,4 @@ const readOne = async (email, password) => {
   return token;
 };
 
-module.exports = readOne;
+module.exports = { readOne };

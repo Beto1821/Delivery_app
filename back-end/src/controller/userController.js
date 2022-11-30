@@ -1,8 +1,8 @@
+const userService = require('../service/userService');
+
 module.exports = {
   async login(req, res) {
     const { email, password } = req.body;
-
-    console.log(email);
   
     const token = await userService.readOne(email, password);
   
