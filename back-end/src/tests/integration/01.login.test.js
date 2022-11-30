@@ -6,14 +6,13 @@ const { Model } = require('sequelize');
 
 const app = require('../../api/app');
 
-const mocks = require('./mocks/loginMock');
+const mocks = require('./mocks/userMock');
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
-const { token } = mocks.responseMock;
-const { password, email } = mocks.userMock;
+const { password, email } = mocks.userMock.admin;
 
 describe('POST /login', () => {
   describe('Tests not filled fields', () => {
@@ -22,7 +21,6 @@ describe('POST /login', () => {
         const httpResponse = await chai
           .request(app)
           .post('/login')
-          .set('authorization', token)
           .send({ password });
 
         expect(httpResponse.status).to.equal(400);
@@ -34,7 +32,6 @@ describe('POST /login', () => {
         const httpResponse = await chai
           .request(app)
           .post('/login')
-          .set('authorization', token)
           .send({ email: mocks.userMock.email });
 
         expect(httpResponse.status).to.equal(400);
@@ -79,7 +76,6 @@ describe('POST /login', () => {
     afterEach(() => sinon.restore());
 
     it('Resolves status 200', async () => {
-      const { email, password } = mocks.userMock;
       const httpResponse = await chai
         .request(app)
         .post('/login')
