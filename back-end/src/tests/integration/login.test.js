@@ -12,6 +12,9 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
+const { token } = mocks.responseMock;
+const { password, email } = mocks.userMock;
+
 describe('POST /login', () => {
   describe('Tests not filled fields', () => {
     describe('When "email" field not filled', () => {
@@ -19,7 +22,8 @@ describe('POST /login', () => {
         const httpResponse = await chai
           .request(app)
           .post('/login')
-          .send({ password: mocks.userMock.password });
+          .set('authorization', token)
+          .send({ password });
 
         expect(httpResponse.status).to.equal(400);
         expect(httpResponse.body).to.deep.equal({ message: 'All fields must be filled' });
@@ -30,6 +34,7 @@ describe('POST /login', () => {
         const httpResponse = await chai
           .request(app)
           .post('/login')
+          .set('authorization', token)
           .send({ email: mocks.userMock.email });
 
         expect(httpResponse.status).to.equal(400);
@@ -46,10 +51,10 @@ describe('POST /login', () => {
         const httpResponse = await chai
           .request(app)
           .post('/login')
-          .send(mocks.userMock);
+          .send({ email, password });
 
-      expect(httpResponse.status).to.equal(401);
-      expect(httpResponse.body).to.deep.equal({ message: 'Incorrect email or password' });
+      expect(httpResponse.status).to.equal(404);
+      expect(httpResponse.body).to.deep.equal({ message: 'User not exists' });
       });
     });
 
@@ -61,7 +66,7 @@ describe('POST /login', () => {
         const httpResponse = await chai
           .request(app)
           .post('/login')
-          .send(mocks.userMock);
+          .send({ email, password: 'incorrect_password' });
 
         expect(httpResponse.status).to.equal(401);
         expect(httpResponse.body).to.deep.equal({ message: 'Incorrect email or password' });
@@ -69,7 +74,7 @@ describe('POST /login', () => {
     });
   });
 
-  describe('Valid data', () => {
+  describe('Tests success login', () => {
     beforeEach(() => sinon.stub(Model, 'findOne').resolves(mocks.userMock));
     afterEach(() => sinon.restore());
 
