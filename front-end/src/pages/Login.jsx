@@ -16,6 +16,13 @@ function Login() {
         disabled={ isDisabled }
         text="Login"
       />
+      <Button
+        dataTestId="common_login__button-register"
+        type="submit"
+        name="register"
+        disabled={ isDisabled }
+        text="Ainda não tenho conta"
+      />
     </form>
   );
 }
