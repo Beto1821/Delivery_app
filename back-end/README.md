@@ -150,7 +150,7 @@ Cria um novo pedido no banco de dados.
   "sellerId": 2,
   "totalPrice": 9.70,
   "deliveryAddress": "Av. Marechal Rondon",
-  "deliveryNumber": 149,
+  "deliveryNumber": "149",
   "products": [1, 2, 3]
 }
 ```
@@ -166,7 +166,7 @@ Cria um novo pedido no banco de dados.
   "sellerId": 2,
   "totalPrice": 9.70,
   "deliveryAddress": "Av. Marechal Rondon",
-  "deliveryNumber": 149,
+  "deliveryNumber": "149",
   "products": [1, 2, 3],
   "status": "PENDENTE"
 }
@@ -197,7 +197,7 @@ Retorna um pedido específico
   "sellerId": 2,
   "totalPrice": 9.70,
   "deliveryAddress": "Av. Marechal Rondon",
-  "deliveryNumber": 149,
+  "deliveryNumber": "149",
   "products": [1, 2, 3],
   "status": "ENTREGUE"
 }
@@ -229,7 +229,7 @@ Retorna todos os pedidos do usuário autenticado.
     "sellerId": 2,
     "totalPrice": 9.70,
     "deliveryAddress": "Av. Marechal Rondon",
-    "deliveryNumber": 149,
+    "deliveryNumber": "149",
     "products": [1, 2, 3],
     "status": "PENDENTE"
   },
@@ -265,7 +265,7 @@ Modifica o status de um pedido.
   "sellerId": 2,
   "totalPrice": 9.70,
   "deliveryAddress": "Av. Marechal Rondon",
-  "deliveryNumber": 149,
+  "deliveryNumber": "149",
   "products": [1, 2, 3],
   "status": "ENTREGUE"
 }
