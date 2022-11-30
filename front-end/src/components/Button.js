@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function Button({ dataTestId, type, name, disabled, onClick, text }) {
   return (
