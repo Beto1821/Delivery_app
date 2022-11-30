@@ -1,4 +1,4 @@
-const { sequelize, Sale, SaleProduct } = require('../database/models');
+const { sequelize, Sale, SaleProduct, Product } = require('../database/models');
 
 const mapSaleProduct = ({ id: productId, quantity }, saleId) => ({
   productId,
@@ -28,8 +28,33 @@ const insertSale = async (sale) =>
     return response;
   });
 
+const extractQuantityFromProduct = (product) => ({
+  id: product.id,
+  name: product.name,
+  price: product.price,
+  urlImage: product.urlImage,
+  quantity: product.info.quantity,
+});
+
+const findByPk = async (id) => {
+  const response = await Sale.findByPk(id, {
+    include: [
+      {
+        model: Product,
+        as: 'products',
+        through: { attributes: ['quantity'], as: 'info' },
+      },
+    ],
+  });
+
+  return {
+    ...response.dataValues,
+    products: response.products.map(extractQuantityFromProduct),
+  };
+};
 const SaleORM = {
   insertSale,
+  findByPk,
 };
 
 module.exports = SaleORM;
