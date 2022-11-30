@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const getJwtKey = require('../auth/getJwtKey');
 const RestError = require('../errors/RestError');
 
-async function verifyToken(req, res) {
+async function verifyToken(req, _res, next) {
   try {
     const secret = await getJwtKey();
     const token = req.headers.authorization;

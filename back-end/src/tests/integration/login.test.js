@@ -1,0 +1,115 @@
+const sinon = require('sinon');
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+
+const { Model } = require('sequelize');
+
+const app = require('../../api/app');
+
+const mocks = require('./mocks/loginMock');
+
+chai.use(chaiHttp);
+
+const { expect } = chai;
+
+describe('POST /login', () => {
+//   describe('Tests not filled fields', () => {
+//     describe('When "email" field not filled', () => {
+//       it('Resolves status 400', async () => {
+//         const httpResponse = await chai
+//           .request(app)
+//           .post('/login')
+//           .send({ password: mocks.userMock.password });
+
+//         expect(httpResponse.status).to.equal(400);
+//         expect(httpResponse.body).to.deep.equal({ message: 'All fields must be filled' });
+//       });
+//     });
+//     describe('When "password" field not filled', () => {
+//       it('Resolves status 400', async () => {
+//         const httpResponse = await chai
+//           .request(app)
+//           .post('/login')
+//           .send({ email: mocks.userMock.email });
+
+//         expect(httpResponse.status).to.equal(400);
+//         expect(httpResponse.body).to.deep.equal({ message: 'All fields must be filled' });
+//       });
+//     });
+//   });
+//   describe('Tests invalid fields', () => {
+//     describe("Email doesn't exists in database", () => {
+//       beforeEach(() => sinon.stub(Model, 'findOne').resolves(null));
+//       afterEach(() => sinon.restore());
+
+//       it('Resolves status 401', async () => {
+//         const httpResponse = await chai
+//           .request(app)
+//           .post('/login')
+//           .send(mocks.userMock);
+
+//       expect(httpResponse.status).to.equal(401);
+//       expect(httpResponse.body).to.deep.equal({ message: 'Incorrect email or password' });
+//       });
+//     });
+
+//     describe("Email exists but incorrect password", () => {
+//       beforeEach(() => sinon.stub(Model, 'findOne').resolves(mocks.userMock));
+//       afterEach(() => sinon.restore());
+
+//       it('Resolves status 401', async () => {
+//         const httpResponse = await chai
+//           .request(app)
+//           .post('/login')
+//           .send(mocks.userMock);
+
+//         expect(httpResponse.status).to.equal(401);
+//         expect(httpResponse.body).to.deep.equal({ message: 'Incorrect email or password' });
+//       });
+//     });
+//   });
+
+  describe('Valid data', () => {
+    beforeEach(() => sinon.stub(Model, 'findOne').resolves(mocks.userMock));
+    afterEach(() => sinon.restore());
+
+    it('Resolves status 200', async () => {
+      const { email, password } = mocks.userMock;
+      const httpResponse = await chai
+        .request(app)
+        .post('/login')
+        .send({ email, password });
+
+      expect(httpResponse.status).to.equal(200);
+      expect(httpResponse.body).to.have.property('token');
+      expect(httpResponse.body.token).to.be.a('string');
+    })
+  });
+});
+
+// describe('GET /login/validate', () => {
+//   describe('Validate token and verify role', () => {
+//     it('Resolves status 200', async () => {
+//       const { token } = mocks.responseMock;
+//       const httpResponse = await chai
+//         .request(app)
+//         .get('/login/validate')
+//         .set('authorization', token);
+
+//       expect(httpResponse.status).to.equal(200);
+//       expect(httpResponse.body).to.have.key('role');
+//     })
+//   })
+  // describe('Verify invalid token', () => {
+  //   it('Resolves status 401', async () => {
+  //     const token = '';
+  //     const httpResponse = await chai
+  //       .request(app)
+  //       .get('/login/validate')
+  //       .set('authorization', token);
+
+  //     expect(httpResponse.status).to.equal(401);
+  //     expect(httpResponse.body).to.deep.equal({ message: 'Invalid token' });
+  //   })
+  // })
+// });
