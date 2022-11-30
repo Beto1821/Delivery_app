@@ -27,12 +27,20 @@ function Login() {
         placeholder="Min. 6 digítos"
         setter={ setPassword }
       />
+      
       <Button
         dataTestId="common_login__button-login"
         type="submit"
         name="login"
         disabled={ isDisabled }
         text="Login"
+      />
+      <Button
+        dataTestId="common_login__button-register"
+        type="submit"
+        name="register"
+        disabled={ isDisabled }
+        text="Ainda não tenho conta"
       />
     </form>
   );

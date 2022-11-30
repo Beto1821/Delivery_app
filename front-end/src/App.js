@@ -7,7 +7,7 @@ function App() {
   return (
     <Switch>
       <LoginProvider>
-        <Route path="/" component={ Login } />
+        <Route path="/login" component={ Login } />
       </LoginProvider>
     </Switch>
   );
