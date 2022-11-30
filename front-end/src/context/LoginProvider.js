@@ -6,7 +6,7 @@ function LoginProvider({ children }) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  const contextUser = useMemo(() => ({
+  const context = useMemo(() => ({
     email,
     setEmail,
     password,
@@ -14,7 +14,7 @@ function LoginProvider({ children }) {
   }), [email, password]);
 
   return (
-    <LoginContext.Provider value={ contextUser }>
+    <LoginContext.Provider value={ context }>
       { children }
     </LoginContext.Provider>
   );
