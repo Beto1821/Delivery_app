@@ -10,7 +10,7 @@ const readOne = async (email, password) => {
   }
 
   if (password !== user.password) {
-    throw new RestError(401, 'Incorrect email or password')
+    throw new RestError(401, 'Incorrect email or password');
   }
 
   const token = generateToken(user);
