@@ -1,14 +1,33 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from '../components/Button';
+import GenericInput from '../components/Input';
 import LoginContext from '../context/LoginContext';
 
 function Login() {
-  // const { email, setEmail, password, setPassword } = useContext(LoginContext);
+  const { email, setEmail, password, setPassword } = useContext(LoginContext);
 
   const [isDisabled] = useState(true);
 
   return (
     <form>
+      <GenericInput
+        testId="common_login__input-email"
+        type="email"
+        input={ email || '' }
+        name="Login"
+        placeholder="example@example.com"
+        setter={ setEmail }
+      />
+
+      <GenericInput
+        testId="common_login__input-password"
+        type="password"
+        input={ password || '' }
+        name="Senha"
+        placeholder="Min. 6 digítos"
+        setter={ setPassword }
+      />
+      
       <Button
         dataTestId="common_login__button-login"
         type="submit"
