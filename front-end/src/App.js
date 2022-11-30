@@ -1,15 +1,15 @@
 import React from 'react';
-import { Route, Router } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import UserProvider from './context/UserProvider';
 import Login from './pages/Login';
 
 function App() {
   return (
-    <Router>
+    <Switch>
       <UserProvider>
-        <Route exact path="/" element={ <Login /> } />
+        <Route exact path="/" component={ Login } />
       </UserProvider>
-    </Router>
+    </Switch>
   );
 }
 
