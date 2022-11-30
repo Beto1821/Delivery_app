@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import LoginContext from './LoginContext';
 
 function LoginProvider({ children }) {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const context = useMemo(() => ({
     email,

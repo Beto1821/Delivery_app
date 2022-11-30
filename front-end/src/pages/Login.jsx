@@ -13,7 +13,7 @@ function Login() {
       <GenericInput
         testId="common_login__input-email"
         type="email"
-        input={ email || '' }
+        input={ email }
         name="Login"
         placeholder="example@example.com"
         setter={ setEmail }
@@ -22,12 +22,12 @@ function Login() {
       <GenericInput
         testId="common_login__input-password"
         type="password"
-        input={ password || '' }
+        input={ password }
         name="Senha"
         placeholder="Min. 6 digítos"
         setter={ setPassword }
       />
-      
+
       <Button
         dataTestId="common_login__button-login"
         type="submit"
