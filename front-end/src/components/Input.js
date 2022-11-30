@@ -9,7 +9,7 @@ function GenericInput({ testId, type, input, name, placeholder, setter }) {
       value={ input }
       fieldname={ name }
       placeholder={ placeholder }
-      onChange={ (event) => setter(event.target.value) }
+      onChange={ ({ target }) => setter(target.value) }
     />
   );
 }
