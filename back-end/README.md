@@ -151,7 +151,20 @@ Cria um novo pedido no banco de dados.
   "totalPrice": 9.70,
   "deliveryAddress": "Av. Marechal Rondon",
   "deliveryNumber": "149",
-  "products": [1, 2, 3]
+  "products": [
+    {
+      "id": 1,
+      "quantity": 3,
+    },
+    {
+      "id": 2,
+      "quantity": 2
+    },
+    {
+      "id": 3,
+      "quantity": 1
+    }
+  ]
 }
 ```
 
@@ -167,7 +180,21 @@ Cria um novo pedido no banco de dados.
   "totalPrice": 9.70,
   "deliveryAddress": "Av. Marechal Rondon",
   "deliveryNumber": "149",
-  "products": [1, 2, 3],
+    "products": [
+    {
+      "id": 1,
+      "quantity": 3,
+    },
+    {
+      "id": 2,
+      "quantity": 2
+    },
+    {
+      "id": 3,
+      "quantity": 1
+    }
+  ]
+,
   "status": "PENDENTE"
 }
 ```
@@ -198,7 +225,21 @@ Retorna um pedido específico
   "totalPrice": 9.70,
   "deliveryAddress": "Av. Marechal Rondon",
   "deliveryNumber": "149",
-  "products": [1, 2, 3],
+    "products": [
+    {
+      "id": 1,
+      "quantity": 3,
+    },
+    {
+      "id": 2,
+      "quantity": 2
+    },
+    {
+      "id": 3,
+      "quantity": 1
+    }
+  ]
+,
   "status": "ENTREGUE"
 }
 ```
@@ -230,7 +271,21 @@ Retorna todos os pedidos do usuário autenticado.
     "totalPrice": 9.70,
     "deliveryAddress": "Av. Marechal Rondon",
     "deliveryNumber": "149",
-    "products": [1, 2, 3],
+      "products": [
+    {
+      "id": 1,
+      "quantity": 3,
+    },
+    {
+      "id": 2,
+      "quantity": 2
+    },
+    {
+      "id": 3,
+      "quantity": 1
+    }
+  ]
+,
     "status": "PENDENTE"
   },
   /* ... */
@@ -266,7 +321,21 @@ Modifica o status de um pedido.
   "totalPrice": 9.70,
   "deliveryAddress": "Av. Marechal Rondon",
   "deliveryNumber": "149",
-  "products": [1, 2, 3],
+    "products": [
+    {
+      "id": 1,
+      "quantity": 3,
+    },
+    {
+      "id": 2,
+      "quantity": 2
+    },
+    {
+      "id": 3,
+      "quantity": 1
+    }
+  ]
+,
   "status": "ENTREGUE"
 }
 ```
