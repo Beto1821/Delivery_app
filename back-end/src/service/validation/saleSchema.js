@@ -1,7 +1,8 @@
 const Joi = require('joi');
 
 const newSaleSchema = Joi.object({
-  sellerId: Joi.number().min(1).required(),
+  userId: Joi.number().min(1).required(),
+  sellerId: Joi.number().min(1).disallow(Joi.ref('userId')).required(),
   totalPrice: Joi.number().min(0).required(),
   deliveryAddress: Joi.string().required(),
   deliveryNumber: Joi.string().required(),
@@ -12,6 +13,7 @@ const newSaleSchema = Joi.object({
         quantity: Joi.number().min(1).required(),
       }),
     )
+    .min(1)
     .required(),
 });
 
