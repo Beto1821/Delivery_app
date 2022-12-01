@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import Button from '../components/Button';
 import GenericInput from '../components/Input';
-import LoginContext from '../context/LoginContext';
 
 function Register() {
   const {

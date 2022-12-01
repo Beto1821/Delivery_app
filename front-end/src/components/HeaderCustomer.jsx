@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import Button from './Button';
 
 function HeaderCustomer() {
-  // const [isDisabled] = useState(false);
-  // const { name } = useContext(LoginContext);
   return (
     <div>
       <Link to="/customer/products">
