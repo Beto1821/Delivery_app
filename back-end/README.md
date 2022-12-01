@@ -274,28 +274,12 @@ Retorna todos os pedidos do usuário autenticado.
   {
     "id": 1,
     "userId": 3,
-    "sellerId": 1,
-    "totalPrice": 20,
-    "deliveryAddress": "Av. Municipal",
-    "deliveryNumber": "2495",
-    "saleDate": "2022-11-30T21:36:47.000Z",
-    "status": "PENDENTE",
-    "products": [
-      {
-        "id": 1,
-        "name": "Skol Lata 250ml",
-        "price": 2.2,
-        "urlImage": "http://localhost:3001/images/skol_lata_350ml.jpg",
-        "quantity": 2
-      },
-      {
-        "id": 3,
-        "name": "Antarctica Pilsen 300ml",
-        "price": 2.49,
-        "urlImage": "http://localhost:3001/images/antarctica_pilsen_300ml.jpg",
-        "quantity": 1
-      }
-    ]
+    "sellerId": 2,
+    "totalPrice": 10,
+    "deliveryAddress": "Av. Marechal Rondon",
+    "deliveryNumber": "149",
+    "saleDate": "2022-12-01T18:26:00.000Z",
+    "status": "PENDENTE"
   },
   /* ... */
 ]

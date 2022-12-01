@@ -2,7 +2,11 @@ const Sinon = require('sinon');
 const { User, SaleProduct, Product, Sale } = require('../../database/models');
 const { userMock, tokenMock } = require('./mocks/userMock');
 const { productsMock } = require('./mocks/productMock');
-const { createSaleMock, getByIdMock } = require('./mocks/saleMock');
+const {
+  createSaleMock,
+  getByIdMock,
+  findAllMock,
+} = require('./mocks/saleMock');
 const jwt = require('jsonwebtoken');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -12,13 +16,14 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Tests all routes on /sales', () => {
+describe.only('Tests all routes on /sales', () => {
   beforeEach(() => {
     Sinon.stub(User, 'findByPk').resolves(userMock.seller);
     Sinon.stub(SaleProduct, 'bulkCreate').resolves();
     Sinon.stub(Product, 'findAll').resolves(productsMock);
     Sinon.stub(Sale, 'create').resolves(createSaleMock.dbResponse);
     Sinon.stub(Sale, 'findByPk').resolves(getByIdMock.dbResponse);
+    Sinon.stub(Sale, 'findAll').resolves(findAllMock);
     Sinon.stub(jwt, 'verify').returns({ payload: userMock.customer });
   });
 
@@ -28,6 +33,7 @@ describe('Tests all routes on /sales', () => {
     Product.findAll.restore();
     Sale.create.restore();
     Sale.findByPk.restore();
+    Sale.findAll.restore();
     jwt.verify.restore();
   });
 
@@ -153,6 +159,30 @@ describe('Tests all routes on /sales', () => {
       expect(response.body).to.deep.equal({
         message: 'Sale not found',
       });
+    });
+  });
+
+  describe('Tests GET /sales/history', () => {
+    it('Should successfully return an array of sales when requested by a customer', async () => {
+      jwt.verify.returns({ payload: userMock.customer });
+      const response = await chai
+        .request(app)
+        .get('/sales/history')
+        .set('Authorization', tokenMock);
+
+      expect(response.status).to.equal(200);
+      expect(response.body).to.deep.equal(findAllMock);
+    });
+
+    it('Should successfully return an array of sales when requested by a seller', async () => {
+      jwt.verify.returns({ payload: userMock.seller });
+      const response = await chai
+        .request(app)
+        .get('/sales/history')
+        .set('Authorization', tokenMock);
+
+      expect(response.status).to.equal(200);
+      expect(response.body).to.deep.equal(findAllMock);
     });
   });
 });

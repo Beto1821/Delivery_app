@@ -82,7 +82,41 @@ const getByIdMock = {
   },
 };
 
+const findAllMock = [
+  {
+    id: 1,
+    userId: 3,
+    sellerId: 2,
+    totalPrice: 10,
+    deliveryAddress: 'Av. Marechal Rondon',
+    deliveryNumber: '149',
+    saleDate: '2022-12-01T18:26:00.000Z',
+    status: 'PENDENTE',
+  },
+  {
+    id: 2,
+    userId: 3,
+    sellerId: 2,
+    totalPrice: 10,
+    deliveryAddress: 'Av. Marechal Rondon',
+    deliveryNumber: '149',
+    saleDate: '2022-12-01T18:48:37.000Z',
+    status: 'PENDENTE',
+  },
+  {
+    id: 3,
+    userId: 6,
+    sellerId: 2,
+    totalPrice: 10,
+    deliveryAddress: 'Av. Marechal Rondon',
+    deliveryNumber: '149',
+    saleDate: '2022-12-01T19:31:03.000Z',
+    status: 'PENDENTE',
+  },
+];
+
 module.exports = {
   createSaleMock,
   getByIdMock,
+  findAllMock,
 };
