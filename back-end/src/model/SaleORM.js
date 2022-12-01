@@ -54,9 +54,32 @@ const findByPk = async (id) => {
     }
   );
 };
+
+const findBySeller = async (sellerId) => {
+  const response = await Sale.findAll({
+    where: {
+      sellerId,
+    },
+  });
+
+  return response;
+};
+
+const findByUser = async (userId) => {
+  const response = await Sale.findAll({
+    where: {
+      userId,
+    },
+  });
+
+  return response;
+};
+
 const SaleORM = {
   insertSale,
   findByPk,
+  findBySeller,
+  findByUser,
 };
 
 module.exports = SaleORM;

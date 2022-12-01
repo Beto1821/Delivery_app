@@ -35,9 +35,18 @@ const findSaleById = async (id) => {
   return response;
 };
 
+const findUserSales = async (user) => {
+  if (user.role === 'seller') {
+    return SaleORM.findBySeller(user.id);
+  }
+
+  return SaleORM.findByUser(user.id);
+};
+
 const SaleService = {
   insertSale,
   findSaleById,
+  findUserSales,
 };
 
 module.exports = SaleService;

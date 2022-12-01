@@ -16,9 +16,16 @@ const findSaleById = async (req, res) => {
   res.status(200).json(response);
 };
 
+const findSaleHistory = async (req, res) => {
+  const response = await saleService.findUserSales(req.user);
+
+  res.status(200).json(response);
+};
+
 const saleController = {
   insertSale,
   findSaleById,
+  findSaleHistory,
 };
 
 module.exports = saleController;
