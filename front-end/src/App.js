@@ -10,6 +10,13 @@ function App() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/register" component={ Register } />
+        <Route path="/customer/products" component={ CustomerProducts } />
+        <Route path="/customer/checkout" component={ CustomerCheckout } />
+        <Route path="/customer/orders/:id" component={ CustomerOrderDetails } />
+        <Route path="/customer/orders/" component={ CustomerOrders } />
+        <Route path="/seller/orders/:id" component={ SellerOrderDetails } />
+        <Route path="/seller/orders/" component={ SellerOrders } />
+        <Route path="/admin/manage" component={ AdminManage } />
       </Switch>
     </LoginProvider>
 
