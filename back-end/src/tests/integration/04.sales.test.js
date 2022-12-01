@@ -24,6 +24,7 @@ describe.only('Tests all routes on /sales', () => {
     Sinon.stub(Sale, 'create').resolves(createSaleMock.dbResponse);
     Sinon.stub(Sale, 'findByPk').resolves(getByIdMock.dbResponse);
     Sinon.stub(Sale, 'findAll').resolves(findAllMock);
+    Sinon.stub(Sale, 'update').resolves([1]);
     Sinon.stub(jwt, 'verify').returns({ payload: userMock.customer });
   });
 
@@ -34,6 +35,7 @@ describe.only('Tests all routes on /sales', () => {
     Sale.create.restore();
     Sale.findByPk.restore();
     Sale.findAll.restore();
+    Sale.update.restore();
     jwt.verify.restore();
   });
 
@@ -183,6 +185,152 @@ describe.only('Tests all routes on /sales', () => {
 
       expect(response.status).to.equal(200);
       expect(response.body).to.deep.equal(findAllMock);
+    });
+  });
+
+  describe('Tests the status updating routes', () => {
+    describe('Tests PUT /sales/:id/processing', () => {
+      it('Should successfully update the status when requested by the seller', async () => {
+        jwt.verify.returns({ payload: userMock.seller });
+        const response = await chai
+          .request(app)
+          .put('/sales/:id/processing')
+          .set('Authorization', tokenMock);
+
+        expect(response.status).to.equal(200);
+        expect(response.body).to.deep.equal({
+          ...getByIdMock.apiResponse,
+          status: 'PREPARANDO',
+        });
+      });
+
+      it('Should return an error when requested by a customer', async () => {
+        jwt.verify.returns({ payload: userMock.customer });
+        const response = await chai
+          .request(app)
+          .put('/sales/:id/processing')
+          .set('Authorization', tokenMock);
+
+        expect(response.status).to.equal(401);
+        expect(response.body).to.deep.equal({
+          message: 'Unauthorized role',
+        });
+      });
+
+      it('Should return an error when requested by an uninvolved seller', async () => {
+        jwt.verify.returns({
+          payload: {
+            ...userMock.seller,
+            id: 5,
+          },
+        });
+
+        const response = await chai
+          .request(app)
+          .put('/sales/:id/processing')
+          .set('Authorization', tokenMock);
+
+        expect(response.status).to.equal(401);
+        expect(response.body).to.deep.equal({
+          message: 'Unauthorized seller',
+        });
+      });
+    });
+
+    describe('Tests PUT /sales/:id/delivering', () => {
+      it('Should successfully update the status when requested by the seller', async () => {
+        jwt.verify.returns({ payload: userMock.seller });
+        const response = await chai
+          .request(app)
+          .put('/sales/:id/delivering')
+          .set('Authorization', tokenMock);
+
+        expect(response.status).to.equal(200);
+        expect(response.body).to.deep.equal({
+          ...getByIdMock.apiResponse,
+          status: 'EM TRÂNSITO',
+        });
+      });
+
+      it('Should return an error when requested by a customer', async () => {
+        jwt.verify.returns({ payload: userMock.customer });
+        const response = await chai
+          .request(app)
+          .put('/sales/:id/delivering')
+          .set('Authorization', tokenMock);
+
+        expect(response.status).to.equal(401);
+        expect(response.body).to.deep.equal({
+          message: 'Unauthorized role',
+        });
+      });
+
+      it('Should return an error when requested by an uninvolved seller', async () => {
+        jwt.verify.returns({
+          payload: {
+            ...userMock.seller,
+            id: 5,
+          },
+        });
+
+        const response = await chai
+          .request(app)
+          .put('/sales/:id/delivering')
+          .set('Authorization', tokenMock);
+
+        expect(response.status).to.equal(401);
+        expect(response.body).to.deep.equal({
+          message: 'Unauthorized seller',
+        });
+      });
+    });
+
+    describe('Tests PUT /sales/:id/delivered', () => {
+      it('Should successfully update the status when requested by the customer', async () => {
+        jwt.verify.returns({ payload: userMock.customer });
+        const response = await chai
+          .request(app)
+          .put('/sales/:id/delivered')
+          .set('Authorization', tokenMock);
+
+        expect(response.status).to.equal(200);
+        expect(response.body).to.deep.equal({
+          ...getByIdMock.apiResponse,
+          status: 'ENTREGUE',
+        });
+      });
+
+      it('Should return an error when requested by a seller', async () => {
+        jwt.verify.returns({ payload: userMock.seller });
+        const response = await chai
+          .request(app)
+          .put('/sales/:id/delivered')
+          .set('Authorization', tokenMock);
+
+        expect(response.status).to.equal(401);
+        expect(response.body).to.deep.equal({
+          message: 'Unauthorized role',
+        });
+      });
+
+      it('Should return an error when requested by an uninvolved customer', async () => {
+        jwt.verify.returns({
+          payload: {
+            ...userMock.customer,
+            id: 5,
+          },
+        });
+
+        const response = await chai
+          .request(app)
+          .put('/sales/:id/delivered')
+          .set('Authorization', tokenMock);
+
+        expect(response.status).to.equal(401);
+        expect(response.body).to.deep.equal({
+          message: 'Unauthorized customer',
+        });
+      });
     });
   });
 });

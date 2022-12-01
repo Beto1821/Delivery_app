@@ -5,7 +5,7 @@ function restrictAccessByRole(authorizedRoles = ['administrator']) {
     const { role } = req.user;
 
     if (!authorizedRoles.includes(role)) {
-      throw new RestError(401, 'Role not authorized');
+      throw new RestError(401, 'Unauthorized role');
     }
 
     next();
