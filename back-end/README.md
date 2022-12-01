@@ -1,6 +1,6 @@
 ## Endpoints
 
-### POST /login
+### POST `/login`
 
 Recebe um body com um email e uma senha, verifica se ambos existem em conjunto dentro do banco de dados, caso exista retorna um token de autenticação.
 
@@ -39,7 +39,7 @@ Recebe um body com um email e uma senha, verifica se ambos existem em conjunto d
 
 <hr/>
 
-### POST /register
+### POST `/register`
 
 Registra um cliente no banco de dados e retorna um token de autenticação.
 
@@ -87,7 +87,7 @@ Registra um cliente no banco de dados e retorna um token de autenticação.
 
 <hr/>
 
-### GET /products
+### GET `/products`
 
 Retorna uma lista com todos os produtos registrados no banco de dados.
 
@@ -110,7 +110,7 @@ Retorna uma lista com todos os produtos registrados no banco de dados.
 
 <hr/>
 
-### GET /products/:id
+### GET `/products/:id`
 
 Retorna um produto específico.
 
@@ -138,7 +138,7 @@ Retorna um produto específico.
 
 <hr/>
 
-### POST /sales
+### POST `/sales`
 
 Cria um novo pedido no banco de dados.
 
@@ -180,7 +180,7 @@ Cria um novo pedido no banco de dados.
   "sellerId": 1,
   "totalPrice": 20,
   "deliveryAddress": "Av. Municipal",
-  "deliveryNumber": "2495",
+  "deliveryNumber": "1234",
   "saleDate": "2022-11-30T21:36:47.000Z",
   "status": "PENDENTE",
   "products": [
@@ -214,7 +214,7 @@ Cria um novo pedido no banco de dados.
 
 <hr/>
 
-### GET /sales/:id
+### GET `/sales/:id`
 
 Retorna um pedido específico
 
@@ -228,7 +228,7 @@ Retorna um pedido específico
   "sellerId": 1,
   "totalPrice": 20,
   "deliveryAddress": "Av. Municipal",
-  "deliveryNumber": "2495",
+  "deliveryNumber": "1234",
   "saleDate": "2022-11-30T21:36:47.000Z",
   "status": "PENDENTE",
   "products": [
@@ -262,7 +262,7 @@ Retorna um pedido específico
 
 <hr/>
 
-### GET /sales/history
+### GET `/sales/history`
 
 Retorna todos os pedidos do usuário autenticado.
 
@@ -289,20 +289,9 @@ Retorna todos os pedidos do usuário autenticado.
 
 <hr/>
 
-### PUT /sales/:id/status
+### PUT `/sales/:id/processing`
 
-Modifica o status de um pedido.
-
-<details>
-<summary>Exemplo de corpo de requisição:</summary>
-
-```ts
-{
-  "status": "PENDENTE" | "PREPARANDO" | "EM TRÂNSITO" | "ENTREGUE"
-}
-```
-
-</details>
+Marca um pedido como `"PREPARANDO"`. Só pode ser acessado pelo token de um usuário vendedor.
 
 <details>
   <summary>Exemplo de resposta:</summary>
@@ -314,9 +303,9 @@ Modifica o status de um pedido.
   "sellerId": 1,
   "totalPrice": 20,
   "deliveryAddress": "Av. Municipal",
-  "deliveryNumber": "2495",
+  "deliveryNumber": "1234",
   "saleDate": "2022-11-30T21:36:47.000Z",
-  "status": "PENDENTE",
+  "status": "PREPARANDO",
   "products": [
     {
       "id": 1,
@@ -340,7 +329,87 @@ Modifica o status de um pedido.
 
 <hr>
 
-### POST /user
+### PUT `/sales/:id/delivering`
+
+Marca um pedido como `"EM TRÂNSITO"`. Só pode ser acessado pelo token de um usuário vendedor.
+
+<details>
+  <summary>Exemplo de resposta:</summary>
+  
+```json
+{
+  "id": 1,
+  "userId": 3,
+  "sellerId": 1,
+  "totalPrice": 20,
+  "deliveryAddress": "Av. Municipal",
+  "deliveryNumber": "1234",
+  "saleDate": "2022-11-30T21:36:47.000Z",
+  "status": "EM TRÂNSITO",
+  "products": [
+    {
+      "id": 1,
+      "name": "Skol Lata 250ml",
+      "price": 2.2,
+      "urlImage": "http://localhost:3001/images/skol_lata_350ml.jpg",
+      "quantity": 2
+    },
+    {
+      "id": 3,
+      "name": "Antarctica Pilsen 300ml",
+      "price": 2.49,
+      "urlImage": "http://localhost:3001/images/antarctica_pilsen_300ml.jpg",
+      "quantity": 1
+    }
+  ]
+}
+```
+  
+</details>
+
+<hr>
+
+### PUT `/sales/:id/delivered`
+
+Marca um pedido como `"ENTREGUE"`. Só pode ser acessado pelo token de um usuário cliente.
+
+<details>
+  <summary>Exemplo de resposta:</summary>
+  
+```json
+{
+  "id": 1,
+  "userId": 3,
+  "sellerId": 1,
+  "totalPrice": 20,
+  "deliveryAddress": "Av. Municipal",
+  "deliveryNumber": "1234",
+  "saleDate": "2022-11-30T21:36:47.000Z",
+  "status": "ENTREGUE",
+  "products": [
+    {
+      "id": 1,
+      "name": "Skol Lata 250ml",
+      "price": 2.2,
+      "urlImage": "http://localhost:3001/images/skol_lata_350ml.jpg",
+      "quantity": 2
+    },
+    {
+      "id": 3,
+      "name": "Antarctica Pilsen 300ml",
+      "price": 2.49,
+      "urlImage": "http://localhost:3001/images/antarctica_pilsen_300ml.jpg",
+      "quantity": 1
+    }
+  ]
+}
+```
+  
+</details>
+
+<hr>
+
+### POST `/user`
 
 Recebe as informações de um usuário e o salva no banco de dados.
 
@@ -382,7 +451,7 @@ Recebe as informações de um usuário e o salva no banco de dados.
 
 <hr/>
 
-### GET /user
+### GET `/user`
 
 Retorna todos os usuários cadastrados no banco de dados, com exceção do usuário que faz a requisição.
 
@@ -405,6 +474,6 @@ Retorna todos os usuários cadastrados no banco de dados, com exceção do usuá
 
 <hr>
 
-### DELETE /user/:id
+### DELETE `/user/:id`
 
 Deleta um cliente ou vendedor do banco de dados. Em caso de sucesso retorna um corpo vazio com status `204`.
