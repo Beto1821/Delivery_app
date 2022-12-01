@@ -49,7 +49,7 @@ const findByPk = async (id) => {
 
   return {
     ...response.dataValues,
-    products: response.products.map(extractQuantityFromProduct),
+    products: response.dataValues.products.map(extractQuantityFromProduct),
   };
 };
 const SaleORM = {

@@ -154,7 +154,7 @@ Cria um novo pedido no banco de dados.
   "products": [
     {
       "id": 1,
-      "quantity": 3,
+      "quantity": 3
     },
     {
       "id": 2,
