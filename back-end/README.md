@@ -151,7 +151,20 @@ Cria um novo pedido no banco de dados.
   "totalPrice": 9.70,
   "deliveryAddress": "Av. Marechal Rondon",
   "deliveryNumber": "149",
-  "products": [1, 2, 3]
+  "products": [
+    {
+      "id": 1,
+      "quantity": 3,
+    },
+    {
+      "id": 2,
+      "quantity": 2
+    },
+    {
+      "id": 3,
+      "quantity": 1
+    }
+  ]
 }
 ```
 
@@ -163,12 +176,29 @@ Cria um novo pedido no banco de dados.
 ```json
 {
   "id": 1,
-  "sellerId": 2,
-  "totalPrice": 9.70,
-  "deliveryAddress": "Av. Marechal Rondon",
-  "deliveryNumber": "149",
-  "products": [1, 2, 3],
-  "status": "PENDENTE"
+  "userId": 3,
+  "sellerId": 1,
+  "totalPrice": 20,
+  "deliveryAddress": "Av. Municipal",
+  "deliveryNumber": "2495",
+  "saleDate": "2022-11-30T21:36:47.000Z",
+  "status": "PENDENTE",
+  "products": [
+    {
+      "id": 1,
+      "name": "Skol Lata 250ml",
+      "price": 2.2,
+      "urlImage": "http://localhost:3001/images/skol_lata_350ml.jpg",
+      "quantity": 2
+    },
+    {
+      "id": 3,
+      "name": "Antarctica Pilsen 300ml",
+      "price": 2.49,
+      "urlImage": "http://localhost:3001/images/antarctica_pilsen_300ml.jpg",
+      "quantity": 1
+    }
+  ]
 }
 ```
 
@@ -194,12 +224,29 @@ Retorna um pedido específico
 ```json
 {
   "id": 1,
-  "sellerId": 2,
-  "totalPrice": 9.70,
-  "deliveryAddress": "Av. Marechal Rondon",
-  "deliveryNumber": "149",
-  "products": [1, 2, 3],
-  "status": "ENTREGUE"
+  "userId": 3,
+  "sellerId": 1,
+  "totalPrice": 20,
+  "deliveryAddress": "Av. Municipal",
+  "deliveryNumber": "2495",
+  "saleDate": "2022-11-30T21:36:47.000Z",
+  "status": "PENDENTE",
+  "products": [
+    {
+      "id": 1,
+      "name": "Skol Lata 250ml",
+      "price": 2.2,
+      "urlImage": "http://localhost:3001/images/skol_lata_350ml.jpg",
+      "quantity": 2
+    },
+    {
+      "id": 3,
+      "name": "Antarctica Pilsen 300ml",
+      "price": 2.49,
+      "urlImage": "http://localhost:3001/images/antarctica_pilsen_300ml.jpg",
+      "quantity": 1
+    }
+  ]
 }
 ```
 
@@ -226,12 +273,29 @@ Retorna todos os pedidos do usuário autenticado.
 [
   {
     "id": 1,
-    "sellerId": 2,
-    "totalPrice": 9.70,
-    "deliveryAddress": "Av. Marechal Rondon",
-    "deliveryNumber": "149",
-    "products": [1, 2, 3],
-    "status": "PENDENTE"
+    "userId": 3,
+    "sellerId": 1,
+    "totalPrice": 20,
+    "deliveryAddress": "Av. Municipal",
+    "deliveryNumber": "2495",
+    "saleDate": "2022-11-30T21:36:47.000Z",
+    "status": "PENDENTE",
+    "products": [
+      {
+        "id": 1,
+        "name": "Skol Lata 250ml",
+        "price": 2.2,
+        "urlImage": "http://localhost:3001/images/skol_lata_350ml.jpg",
+        "quantity": 2
+      },
+      {
+        "id": 3,
+        "name": "Antarctica Pilsen 300ml",
+        "price": 2.49,
+        "urlImage": "http://localhost:3001/images/antarctica_pilsen_300ml.jpg",
+        "quantity": 1
+      }
+    ]
   },
   /* ... */
 ]
@@ -262,12 +326,29 @@ Modifica o status de um pedido.
 ```json
 {
   "id": 1,
-  "sellerId": 2,
-  "totalPrice": 9.70,
-  "deliveryAddress": "Av. Marechal Rondon",
-  "deliveryNumber": "149",
-  "products": [1, 2, 3],
-  "status": "ENTREGUE"
+  "userId": 3,
+  "sellerId": 1,
+  "totalPrice": 20,
+  "deliveryAddress": "Av. Municipal",
+  "deliveryNumber": "2495",
+  "saleDate": "2022-11-30T21:36:47.000Z",
+  "status": "PENDENTE",
+  "products": [
+    {
+      "id": 1,
+      "name": "Skol Lata 250ml",
+      "price": 2.2,
+      "urlImage": "http://localhost:3001/images/skol_lata_350ml.jpg",
+      "quantity": 2
+    },
+    {
+      "id": 3,
+      "name": "Antarctica Pilsen 300ml",
+      "price": 2.49,
+      "urlImage": "http://localhost:3001/images/antarctica_pilsen_300ml.jpg",
+      "quantity": 1
+    }
+  ]
 }
 ```
   

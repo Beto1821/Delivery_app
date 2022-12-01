@@ -5,6 +5,7 @@ module.exports = {
       saleId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
+        field: 'sale_id',
         references: {
           model: 'sales',
           key: 'id',
@@ -17,6 +18,7 @@ module.exports = {
           model: 'products',
           key: 'id',
         },
+        field: 'product_id',
       },
       quantity: {
         type: Sequelize.INTEGER,

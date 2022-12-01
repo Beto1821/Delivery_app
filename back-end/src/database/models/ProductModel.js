@@ -4,17 +4,18 @@ module.exports = (sequelize, DataTypes) => {
     {
       id: {
         type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
       },
-      firstName: DataTypes.STRING,
-      lastName: DataTypes.STRING,
-      age: DataTypes.INTEGER,
+      name: DataTypes.STRING,
+      price: DataTypes.FLOAT,
+      urlImage: DataTypes.STRING,
     },
     {
       timestamps: false,
       underscored: true,
       tableName: 'products',
-    }
+    },
   );
 
   return Product;
