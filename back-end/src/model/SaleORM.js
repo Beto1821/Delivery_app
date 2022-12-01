@@ -75,11 +75,14 @@ const findByUser = async (userId) => {
   return response;
 };
 
+const update = async (id, sale) => Sale.update(sale, { where: { id } });
+
 const SaleORM = {
   insertSale,
   findByPk,
   findBySeller,
   findByUser,
+  update,
 };
 
 module.exports = SaleORM;

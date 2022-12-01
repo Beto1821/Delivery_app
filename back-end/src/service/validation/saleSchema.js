@@ -17,6 +17,11 @@ const newSaleSchema = Joi.object({
     .required(),
 });
 
+const statusSchema = Joi.string()
+  .allow('PREPARANDO', 'EM TRÂNSITO', 'ENTREGUE')
+  .required();
+
 module.exports = {
   newSaleSchema,
+  statusSchema,
 };
