@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import Button from '../components/Button';
 import GenericInput from '../components/Input';
 import LoginContext from '../context/LoginContext';
@@ -13,7 +13,12 @@ function Register() {
     setPassword,
   } = useContext(LoginContext);
 
-  const [isDisabled] = useState(true);
+  const minName = 12;
+  const emailPattern = /\S+@\S+\.\S+/;
+  const minPassword = 6;
+
+  const disabledBtn = () => !(
+    name.length >= minName && emailPattern.test(email) && password.length >= minPassword);
 
   return (
     <form>
@@ -55,10 +60,9 @@ function Register() {
         dataTestId="common_register__button-register"
         type="submit"
         name="register"
-        disabled={ isDisabled }
+        disabled={ disabledBtn() }
         text="Cadastrar"
       />
-
     </form>
   );
 }
