@@ -1,10 +1,10 @@
 const RestError = require('../../errors/RestError');
 
-function validateSchema(schema, obj) {
+function validateSchema(schema, obj, status = 422) {
   const { error, value } = schema.validate(obj);
 
   if (error) {
-    throw new RestError(422, error.message);
+    throw new RestError(status, error.message);
   }
 
   return value;
