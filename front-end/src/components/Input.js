@@ -1,16 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function GenericInput({ testId, type, input, name, placeholder, setter }) {
+function GenericInput({
+  testId,
+  type,
+  input,
+  name,
+  placeholder,
+  setter,
+  selector,
+  fieldName }) {
   return (
-    <input
-      data-testid={ testId }
-      type={ type }
-      value={ input }
-      fieldname={ name }
-      placeholder={ placeholder }
-      onChange={ ({ target }) => setter(target.value) }
-    />
+    <label htmlFor={ selector }>
+      { fieldName }
+      <input
+        data-testid={ testId }
+        type={ type }
+        value={ input }
+        fieldname={ name }
+        placeholder={ placeholder }
+        onChange={ (event) => setter(event.target.value) }
+      />
+    </label>
   );
 }
 
@@ -25,6 +36,8 @@ GenericInput.propTypes = {
   name: PropTypes.string.isRequired,
   setter: PropTypes.func,
   placeholder: PropTypes.string.isRequired,
+  selector: PropTypes.string.isRequired,
+  fieldName: PropTypes.string.isRequired,
 };
 
 export default GenericInput;

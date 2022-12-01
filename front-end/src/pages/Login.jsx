@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 import GenericInput from '../components/Input';
 import LoginContext from '../context/LoginContext';
@@ -38,13 +39,15 @@ function Login() {
         disabled={ disabledBtn() }
         text="Login"
       />
-      <Button
-        dataTestId="common_login__button-register"
-        type="submit"
-        name="register"
-        disabled={ isDisabled }
-        text="Ainda não tenho conta"
-      />
+      <Link to="/register">
+        <Button
+          dataTestId="common_login__button-register"
+          type="submit"
+          name="register"
+          disabled={ isDisabled }
+          text="Ainda não tenho conta"
+        />
+      </Link>
     </form>
   );
 }
