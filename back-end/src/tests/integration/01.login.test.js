@@ -56,7 +56,7 @@ describe('POST /login', () => {
     });
 
     describe("Email exists but incorrect password", () => {
-      beforeEach(() => sinon.stub(Model, 'findOne').resolves(mocks.userMock));
+      beforeEach(() => sinon.stub(Model, 'findOne').resolves(mocks.userMock.admin));
       afterEach(() => sinon.restore());
 
       it('Resolves status 401', async () => {
@@ -72,14 +72,14 @@ describe('POST /login', () => {
   });
 
   describe('Tests success login', () => {
-    beforeEach(() => sinon.stub(Model, 'findOne').resolves(mocks.userMock));
+    beforeEach(() => sinon.stub(Model, 'findOne').resolves(mocks.userMock.admin));
     afterEach(() => sinon.restore());
 
     it('Resolves status 200', async () => {
       const httpResponse = await chai
         .request(app)
         .post('/login')
-        .send({ email, password });
+        .send({ email, password: '--adm2@21!!--' });
 
       expect(httpResponse.status).to.equal(200);
       expect(httpResponse.body).to.have.property('token');
