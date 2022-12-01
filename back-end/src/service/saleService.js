@@ -25,8 +25,19 @@ const insertSale = async (sale) => {
   return SaleORM.findByPk(result.id);
 };
 
+const findSaleById = async (id) => {
+  const response = await SaleORM.findByPk(id);
+
+  if (!response) {
+    throw new RestError(404, 'Sale not found');
+  }
+
+  return response;
+};
+
 const SaleService = {
   insertSale,
+  findSaleById,
 };
 
 module.exports = SaleService;

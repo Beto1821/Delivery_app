@@ -47,10 +47,12 @@ const findByPk = async (id) => {
     ],
   });
 
-  return {
-    ...response.dataValues,
-    products: response.dataValues.products.map(extractQuantityFromProduct),
-  };
+  return (
+    response && {
+      ...response.dataValues,
+      products: response.dataValues.products.map(extractQuantityFromProduct),
+    }
+  );
 };
 const SaleORM = {
   insertSale,

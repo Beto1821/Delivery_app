@@ -13,25 +13,25 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('Tests all routes on /sales', () => {
+  beforeEach(() => {
+    Sinon.stub(User, 'findByPk').resolves(userMock.seller);
+    Sinon.stub(SaleProduct, 'bulkCreate').resolves();
+    Sinon.stub(Product, 'findAll').resolves(productsMock);
+    Sinon.stub(Sale, 'create').resolves(createSaleMock.dbResponse);
+    Sinon.stub(Sale, 'findByPk').resolves(getByIdMock.dbResponse);
+    Sinon.stub(jwt, 'verify').returns({ payload: userMock.customer });
+  });
+
+  afterEach(() => {
+    User.findByPk.restore();
+    SaleProduct.bulkCreate.restore();
+    Product.findAll.restore();
+    Sale.create.restore();
+    Sale.findByPk.restore();
+    jwt.verify.restore();
+  });
+
   describe('Tests POST /sales', () => {
-    beforeEach(() => {
-      Sinon.stub(User, 'findByPk').resolves(userMock.seller);
-      Sinon.stub(SaleProduct, 'bulkCreate').resolves();
-      Sinon.stub(Product, 'findAll').resolves(productsMock);
-      Sinon.stub(Sale, 'create').resolves(createSaleMock.dbResponse);
-      Sinon.stub(Sale, 'findByPk').resolves(getByIdMock.dbResponse);
-      Sinon.stub(jwt, 'verify').returns({ payload: userMock.customer });
-    });
-
-    afterEach(() => {
-      User.findByPk.restore();
-      SaleProduct.bulkCreate.restore();
-      Product.findAll.restore();
-      Sale.create.restore();
-      Sale.findByPk.restore();
-      jwt.verify.restore();
-    });
-
     const validInput = {
       sellerId: 2,
       totalPrice: 9.7,
@@ -127,6 +127,31 @@ describe('Tests all routes on /sales', () => {
       expect(response.status).to.equal(422);
       expect(response.body).to.deep.equal({
         message: 'Some of the provided products do not exist',
+      });
+    });
+  });
+
+  describe('Tests GET /sales/:id', () => {
+    it('Should successfully return a sale by id', async () => {
+      const response = await chai
+        .request(app)
+        .get('/sales/1')
+        .set('Authorization', tokenMock);
+
+      expect(response.status).to.equal(200);
+      expect(response.body).to.deep.equal(getByIdMock.apiResponse);
+    });
+
+    it('Should return a error when the requested sale does not exist', async () => {
+      Sale.findByPk.resolves(undefined);
+      const response = await chai
+        .request(app)
+        .get('/sales/1')
+        .set('Authorization', tokenMock);
+
+      expect(response.status).to.equal(404);
+      expect(response.body).to.deep.equal({
+        message: 'Sale not found',
       });
     });
   });
