@@ -8,9 +8,9 @@ userRouter.post(
   userController.login,
 );
 
-// userRouter.post(
-//   '/register',
-//   userController.register,
-// );
+userRouter.post(
+  '/register',
+  userController.userRegister,
+);
 
 module.exports = userRouter;
