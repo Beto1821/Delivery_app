@@ -55,7 +55,13 @@ const findUserSales = async (user) => {
 const updateStatus = async (id, status) => {
   validateSchema(statusSchema, status);
 
-  return SaleORM.update(id, { status });
+  const [affectedRows] = await SaleORM.update(id, { status });
+
+  if (affectedRows === 0) {
+    throw new RestError(404, 'Sale not found');
+  }
+
+  return SaleORM.findByPk(id);
 };
 
 const SaleService = {

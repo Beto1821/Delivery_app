@@ -22,10 +22,19 @@ const findSaleHistory = async (req, res) => {
   res.status(200).json(response);
 };
 
+const updateStatus = (status) => async (req, res) => {
+  const { id } = req.params;
+
+  const response = await saleService.updateStatus(id, status);
+
+  res.status(200).json(response);
+};
+
 const saleController = {
   insertSale,
   findSaleById,
   findSaleHistory,
+  updateStatus,
 };
 
 module.exports = saleController;
