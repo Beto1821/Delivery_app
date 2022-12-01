@@ -6,8 +6,11 @@ import LoginContext from '../context/LoginContext';
 
 function Login() {
   const { email, setEmail, password, setPassword } = useContext(LoginContext);
+  const emailPattern = /\S+@\S+\.\S+/;
+  const NUM = 6;
+  const [isDisabled] = useState(false);
 
-  const [isDisabled] = useState(true);
+  const disabledBtn = () => !(emailPattern.test(email) && password.length >= NUM);
 
   return (
     <form>
@@ -33,7 +36,7 @@ function Login() {
         dataTestId="common_login__button-login"
         type="submit"
         name="login"
-        disabled={ isDisabled }
+        disabled={ disabledBtn() }
         text="Login"
       />
       <Link to="/register">
