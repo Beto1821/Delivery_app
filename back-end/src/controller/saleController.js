@@ -25,7 +25,7 @@ const findSaleHistory = async (req, res) => {
 const updateStatus = (status) => async (req, res) => {
   const { id } = req.params;
 
-  const response = await saleService.updateStatus(id, status);
+  const response = await saleService.updateStatus(id, status, req.user);
 
   res.status(200).json(response);
 };

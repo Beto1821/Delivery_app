@@ -52,16 +52,24 @@ const findUserSales = async (user) => {
   return SaleORM.findByUser(user.id);
 };
 
-const updateStatus = async (id, status) => {
+const updateStatus = async (id, status, user) => {
   validateSchema(statusSchema, status);
+  const sale = await findSaleById(id);
 
-  const [affectedRows] = await SaleORM.update(id, { status });
-
-  if (affectedRows === 0) {
-    throw new RestError(404, 'Sale not found');
+  if (user.role === 'seller') {
+    if (user.id !== sale.sellerId) {
+      throw new RestError(401, 'Unauthorized seller');
+    }
+  } else if (user.id !== sale.userId) {
+    throw new RestError(401, 'Unauthorized customer');
   }
 
-  return SaleORM.findByPk(id);
+  await SaleORM.update(id, { status });
+
+  return {
+    ...sale,
+    status,
+  };
 };
 
 const SaleService = {
