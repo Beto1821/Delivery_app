@@ -2,7 +2,7 @@ const md5 = require('md5');
 const generateToken = require('../auth/generateToken');
 const RestError = require('../errors/RestError');
 const UserORM = require('../model/UserORM');
-const { loginSchema } = require('./validation/userSchema');
+const { loginSchema, userRegisterSchema } = require('./validation/userSchema');
 const validateSchema = require('./validation/validateSchema');
 
 const readOne = async (email, password) => {
@@ -25,4 +25,20 @@ const readOne = async (email, password) => {
   return token;
 };
 
-module.exports = { readOne };
+const create = async (data) => {
+  validateSchema(userRegisterSchema, data, 400);
+
+  const validateUser = await UserORM.findByEmail(data.email);
+
+  if (validateUser) {
+    throw new RestError(409, 'User already exists');
+  }
+
+  const user = await UserORM.create(data);
+
+  const token = generateToken(user);
+
+  return token;
+};
+
+module.exports = { readOne, create };
