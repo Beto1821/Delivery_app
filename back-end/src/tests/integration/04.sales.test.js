@@ -16,7 +16,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe.only('Tests all routes on /sales', () => {
+describe('Tests all routes on /sales', () => {
   beforeEach(() => {
     Sinon.stub(User, 'findByPk').resolves(userMock.seller);
     Sinon.stub(SaleProduct, 'bulkCreate').resolves();

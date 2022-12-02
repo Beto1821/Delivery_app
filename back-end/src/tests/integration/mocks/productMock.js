@@ -19,6 +19,9 @@ const productsMock = [
   },
 ];
 
+const [productMock] = productsMock;
+
 module.exports = {
   productsMock,
+  productMock,
 };
