@@ -15,9 +15,12 @@ const findManyByPk = async (...ids) => {
 
 const getAll = () => Product.findAll();
 
+const findByPk = (id) => Product.findByPk(id);
+
 const ProductORM = {
   findManyByPk,
   getAll,
+  findByPk,
 };
 
 module.exports = ProductORM;

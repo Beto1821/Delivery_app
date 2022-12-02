@@ -1,6 +1,6 @@
 const Sinon = require('sinon');
 const { Product } = require('../../database/models');
-const { productsMock } = require('./mocks/productMock');
+const { productsMock, productMock } = require('./mocks/productMock');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../../api/app');
@@ -14,11 +14,13 @@ const { expect } = chai;
 describe('Tests all routes on /products', () => {
   beforeEach(() => {
     Sinon.stub(Product, 'findAll').resolves(productsMock);
+    Sinon.stub(Product, 'findByPk').resolves(productMock);
     Sinon.stub(jwt, 'verify').resolves({ payload: userMock.customer });
   });
 
   afterEach(() => {
     Product.findAll.restore();
+    Product.findByPk.restore();
     jwt.verify.restore();
   });
 
@@ -41,6 +43,33 @@ describe('Tests all routes on /products', () => {
       expect(result.body).to.deep.equal({
         message: 'Authorization token not found!',
       });
+    });
+  });
+
+  describe('Tests GET /products/:id', () => {
+    it('Should successfully return a product', async () => {
+      const result = await chai
+        .request(app)
+        .get('/products/1')
+        .set('Authorization', tokenMock);
+
+      expect(result.status).to.equal(200);
+      expect(result.body).to.deep.equal(productMock);
+      expect(jwt.verify.calledOnce).to.be.true;
+    });
+
+    it('Should return an error when the product is not found', async () => {
+      Product.findByPk.resolves(undefined);
+      const result = await chai
+        .request(app)
+        .get('/products/1')
+        .set('Authorization', tokenMock);
+
+      expect(result.status).to.equal(404);
+      expect(result.body).to.deep.equal({
+        message: 'Product not found',
+      });
+      expect(jwt.verify.calledOnce).to.be.true;
     });
   });
 });
