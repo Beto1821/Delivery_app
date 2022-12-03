@@ -18,4 +18,22 @@ module.exports = {
 
     return res.status(201).json({ token });
   },
+
+  async createUser(req, res) {
+    const { name, email, password, role } = req.body;
+
+    const data = { email, name, password, role };
+
+    const user = await userService.createWithRole(data);
+
+    return res.status(201).json(user);
+  },
+
+  async deleteUser(req, res) {
+    const { id } = req.params;
+
+    await userService.deleteUser(id);
+
+    return res.sendStatus(204);
+  },
 };

@@ -13,4 +13,14 @@ userRouter.post(
   userController.userRegister,
 );
 
+userRouter.post(
+  '/user',
+  userController.createUser,
+);
+
+userRouter.delete(
+  '/user/:id',
+  userController.deleteUser,
+);
+
 module.exports = userRouter;
