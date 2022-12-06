@@ -12,12 +12,12 @@ function App() {
         <Route exact path="/" component={ Login } />
         <Route exact path="/register" component={ Register } />
         <Route path="custumer/products" component={ Products } />
-        <Route path="custumer/checkout" component={ Checkout } />
+        {/* <Route path="custumer/checkout" component={ Checkout } />
         <Route path="customer/orders/:id" component={ OrderDetails } />
         <Route path="customer/orders/" component={ Orders } />
         <Route path="/seller/orders/:id" component={ SellerOrderDetails } />
         <Route path="/seller/orders/" component={ SellerOrders } />
-        <Route path="/admin/manage" component={ AdminManage } />
+        <Route path="/admin/manage" component={ AdminManage } /> */}
       </Switch>
     </LoginProvider>
 
