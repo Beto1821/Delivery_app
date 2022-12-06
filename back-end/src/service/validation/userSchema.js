@@ -35,7 +35,32 @@ const userRegisterSchema = Joi.object({
     }),
 });
 
+const userCreateSchema = Joi.object({
+  name: Joi.string()
+    .required()
+    .messages({
+      'any.required': ALL_FIELDS_REQUIRED,
+    }),
+  email: Joi.string()
+    .email()
+    .required()
+    .messages({
+      'any.required': ALL_FIELDS_REQUIRED,
+    }),
+  password: Joi.string()
+    .required()
+    .messages({
+      'any.required': ALL_FIELDS_REQUIRED,
+    }),
+  role: Joi.string()
+    .required()
+    .messages({
+      'any.required': ALL_FIELDS_REQUIRED,
+    }),
+});
+
 module.exports = {
   loginSchema,
   userRegisterSchema,
+  userCreateSchema,
 };
