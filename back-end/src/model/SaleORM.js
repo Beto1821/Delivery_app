@@ -47,14 +47,42 @@ const findByPk = async (id) => {
     ],
   });
 
-  return {
-    ...response.dataValues,
-    products: response.products.map(extractQuantityFromProduct),
-  };
+  return (
+    response && {
+      ...response.dataValues,
+      products: response.dataValues.products.map(extractQuantityFromProduct),
+    }
+  );
 };
+
+const findBySeller = async (sellerId) => {
+  const response = await Sale.findAll({
+    where: {
+      sellerId,
+    },
+  });
+
+  return response;
+};
+
+const findByUser = async (userId) => {
+  const response = await Sale.findAll({
+    where: {
+      userId,
+    },
+  });
+
+  return response;
+};
+
+const update = async (id, sale) => Sale.update(sale, { where: { id } });
+
 const SaleORM = {
   insertSale,
   findByPk,
+  findBySeller,
+  findByUser,
+  update,
 };
 
 module.exports = SaleORM;

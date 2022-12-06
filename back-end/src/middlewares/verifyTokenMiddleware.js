@@ -16,6 +16,9 @@ async function verifyToken(req, _res, next) {
     req.user = payload;
     next();
   } catch (err) {
+    if (err.statusCode) {
+      throw err;
+    }
     throw new RestError(401, 'Token must be a valid token');
   }
 }
