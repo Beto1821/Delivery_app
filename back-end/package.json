@@ -13,6 +13,7 @@
     "start": "node .",
     "dev": "nodemon .",
     "test": "mocha src/tests/**/*$NAME*.test.js --exit",
+    "test:integration": "mocha src/tests/integration/*.test.js --exit",
     "test:coverage": "nyc --all npm run test",
     "test:coverage:json": "nyc --all --reporter=json-summary npm run test",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json ."
@@ -24,7 +25,9 @@
     "cors": "2.8.5",
     "dotenv": "16.0.0",
     "express": "4.17.3",
+    "express-async-errors": "^3.1.1",
     "express-rescue": "1.1.31",
+    "joi": "^17.7.0",
     "jsonwebtoken": "8.5.1",
     "md5": "2.3.0",
     "multer": "1.4.4",
