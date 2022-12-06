@@ -25,6 +25,12 @@ const readOne = async (email, password) => {
   return token;
 };
 
+const readAll = async (id) => {
+  const users = await UserORM.findAll(id);
+
+  return users;
+};
+
 const create = async (data) => {
   validateSchema(userRegisterSchema, data, 400);
 
@@ -76,4 +82,4 @@ const deleteUser = async (id) => {
   }
 };
 
-module.exports = { readOne, create, createWithRole, deleteUser };
+module.exports = { readOne, readAll, create, createWithRole, deleteUser };

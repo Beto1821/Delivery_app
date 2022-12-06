@@ -9,6 +9,16 @@ module.exports = {
     return res.status(200).json({ token });
   },
 
+  async index(req, res) {
+    console.log(req.user);
+
+    const { id } = req.user;
+
+    const users = await userService.readAll(id);
+
+    return res.status(200).json(users);
+  },
+  
   async userRegister(req, res) {
     const { email, name, password } = req.body;
 

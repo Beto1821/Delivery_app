@@ -64,7 +64,7 @@ describe('POST /user', () => {
       });
     });
   });
-  describe('Testes when "role" field is invalid', () => {
+  describe('Testes "role" field is invalid', () => {
     beforeEach(() => sinon.stub(Model, 'findOne').resolves(null));
     afterEach(() => sinon.restore());
     it('Resolves status 400', async () => {
@@ -108,21 +108,35 @@ describe('POST /user', () => {
   });
 });
 
-// describe('GET /user', () => {
-//   describe('Tests resolves all users', () => {
-//     beforeEach(() => sinon.stub(Model, 'findAll').resolves([{ mocks: { ...userMock } }]));
-//     afterEach(() => sinon.restore());
-//     it('Resolves status 200', async () => {
-//       const httpResponse = await chai
-//           .request(app)
-//           .get('/user')
-//           .set('authorization', token);
+describe('GET /user', () => {
+  describe('Tests resolves all users', () => {
+    beforeEach(() => sinon.stub(Model, 'findAll').resolves([{ mocks: { ...userMock } }]));
+    afterEach(() => sinon.restore());
+    it('Resolves status 500', async () => {
+      const httpResponse = await chai
+          .request(app)
+          .get('/user')
+          .set('authorization', token);
 
-//         expect(httpResponse.status).to.equal(201);
-//         expect(httpResponse.body).to.deep.equal([{ mocks: { ...userMock } }]);
-//     });
-//   });
-// });
+        expect(httpResponse.status).to.equal(500);
+    });
+  });
+  describe('Tests resolves all users', () => {
+    mocks.userMock.customer.password = undefined;
+    mocks.userMock.seller.password = undefined;
+    beforeEach(() => sinon.stub(Model, 'findAll').resolves([mocks.userMock.customer, mocks.userMock.seller]));
+    afterEach(() => sinon.restore());
+    it('Resolves status 200', async () => {
+      const httpResponse = await chai
+          .request(app)
+          .get('/user')
+          .set('authorization', token);
+
+        expect(httpResponse.status).to.equal(200);
+        expect(httpResponse.body).to.deep.equal([mocks.userMock.customer, mocks.userMock.seller]);
+    });
+  });
+});
 
 describe('DELETE /user/:id', () => {
   describe('Tests user not found', () => {
